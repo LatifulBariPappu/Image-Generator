@@ -13,7 +13,7 @@
         android:text="Generate  Image Now"
         android:textSize="30sp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/text_view"/>
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,6 +21,7 @@
         android:gravity="center"
         android:orientation="vertical">
         <EditText
+            android:id="@+id/input_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
@@ -35,7 +36,7 @@
         <ProgressBar
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:id="@+id/progress_circular"
+            android:id="@+id/progress_bar"
             android:indeterminateTint="@color/design_default_color_primary"/>
         <ImageView
             android:layout_width="256dp"
