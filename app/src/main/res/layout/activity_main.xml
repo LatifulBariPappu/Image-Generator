@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Generate  Image Now"
+        android:text="Generate Image Now"
         android:textSize="30sp"
         android:layout_centerHorizontal="true"
         />
@@ -37,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:id="@+id/progress_bar"
+            android:visibility="gone"
             android:indeterminateTint="@color/design_default_color_primary"/>
         <ImageView
             android:layout_width="256dp"

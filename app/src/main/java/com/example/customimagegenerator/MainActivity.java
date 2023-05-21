@@ -1,20 +1,18 @@
 package com.example.customimagegenerator;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.button.MaterialButton;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONException;
+import com.google.android.material.button.MaterialButton;
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -51,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             String text= inputText.getText().toString().trim();
             if (text.isEmpty()){
                 inputText.setError("Text can't be empty");
+                return;
             }
             callAPI(text);
         });
@@ -58,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     void  callAPI(String text){
         //API Calling
+        setInProgress(true);
         JSONObject jsonBody=new JSONObject();
         try {
             jsonBody.put("prompt",text);
@@ -68,10 +68,9 @@ public class MainActivity extends AppCompatActivity {
         RequestBody requestBody=RequestBody.create(jsonBody.toString(),JSON);
         Request request=new Request.Builder()
                 .url("https://api.openai.com/v1/images/generations")
-                .header("Authorization","Bearer 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")
+                .header("Authorization","Bearer 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")
                 .post(requestBody)
                 .build();
-
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -80,9 +79,32 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                Log.i("Response : ",response.body().string());
+                try {
+                    JSONObject jsonObject=new JSONObject(response.body().string());
+                    String imageUrl=jsonObject.getJSONArray("data").getJSONObject(0).getString("url");
+                    loadImage(imageUrl);
+                    setInProgress(false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+            }
+        });
+    }
+     void setInProgress(boolean inProgress){
+        runOnUiThread(()->{
+            if (inProgress){
+                progressBar.setVisibility(View.INVISIBLE);
+                generateBtn.setVisibility(View.GONE);
+            }else{
+                progressBar.setVisibility(View.GONE);
+                generateBtn.setVisibility(View.VISIBLE);
             }
         });
 
+     }
+    void  loadImage(String url){
+        //load image
+        runOnUiThread(()-> Picasso.get().load(url).into(imageView));
     }
 }
