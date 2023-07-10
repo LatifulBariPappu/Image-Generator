@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Generate Image Now"
+        android:textStyle="bold"
         android:textSize="30sp"
         android:layout_centerHorizontal="true"
         />
@@ -31,20 +32,22 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="Generate"
+            android:textColor="@color/white"
             android:padding="12dp"
+            android:background="@drawable/btn_back"
             android:id="@+id/generate_btn"/>
         <ProgressBar
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:id="@+id/progress_bar"
             android:visibility="gone"
-            android:indeterminateTint="@color/design_default_color_primary"/>
+            android:indeterminateTint="#09EA13"/>
         <ImageView
             android:layout_width="256dp"
             android:layout_height="256dp"
             android:id="@+id/image_view"
             android:layout_marginTop="20dp"
-            android:src="#ACACAC"/>
+            android:src="#66ACACAC"/>
 
 
     </LinearLayout>

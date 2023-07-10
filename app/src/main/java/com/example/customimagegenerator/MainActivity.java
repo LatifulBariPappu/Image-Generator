@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         progressBar=findViewById(R.id.progress_bar);
         imageView=findViewById(R.id.image_view);
 
-
         generateBtn.setOnClickListener((v)->{
             String text= inputText.getText().toString().trim();
             if (text.isEmpty()){
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         RequestBody requestBody=RequestBody.create(jsonBody.toString(),JSON);
         Request request=new Request.Builder()
                 .url("https://api.openai.com/v1/images/generations")
-                .header("Authorization","Bearer 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")
+                .header("Authorization","Bearer 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")
                 .post(requestBody)
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
      void setInProgress(boolean inProgress){
         runOnUiThread(()->{
             if (inProgress){
-                progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 generateBtn.setVisibility(View.GONE);
             }else{
                 progressBar.setVisibility(View.GONE);
